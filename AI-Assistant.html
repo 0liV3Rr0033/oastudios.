@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Assistant</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+    /* Button styling */
+    #assistant-button {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background-color: #0078d4;
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 60px;
+      height: 60px;
+      cursor: pointer;
+      font-size: 24px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+    /* Chat window styling */
+    #chat-window {
+      position: fixed;
+      bottom: 90px;
+      right: 20px;
+      width: 300px;
+      max-height: 400px;
+      background-color: white;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      display: none;
+      flex-direction: column;
+    }
+    #chat-header {
+      background-color: #0078d4;
+      color: white;
+      padding: 10px;
+      text-align: center;
+      border-radius: 10px 10px 0 0;
+    }
+    #chat-body {
+      padding: 10px;
+      flex: 1;
+      overflow-y: auto;
+    }
+    #chat-footer {
+      display: flex;
+      border-top: 1px solid #ddd;
+    }
+    #chat-input {
+      flex: 1;
+      border: none;
+      padding: 10px;
+      outline: none;
+    }
+    #send-button {
+      background-color: #0078d4;
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <!-- Assistant Button -->
+  <button id="assistant-button">💬</button>
+
+  <!-- Chat Window -->
+  <div id="chat-window">
+    <div id="chat-header">AI Assistant</div>
+    <div id="chat-body"></div>
+    <div id="chat-footer">
+      <input id="chat-input" type="text" placeholder="Type a message...">
+      <button id="send-button">Send</button>
+    </div>
+  </div>
+
+  <script>
+    const OPENAI_API_KEY = "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";
+
+    // Toggle chat window visibility
+    const assistantButton = document.getElementById('assistant-button');
+    const chatWindow = document.getElementById('chat-window');
+    assistantButton.addEventListener('click', () => {
+      chatWindow.style.display = chatWindow.style.display === 'none' ? 'flex' : 'none';
+    });
+
+    // Handle sending messages
+    const chatBody = document.getElementById('chat-body');
+    const chatInput = document.getElementById('chat-input');
+    const sendButton = document.getElementById('send-button');
+
+    function addMessage(message, isUser = true) {
+      const messageDiv = document.createElement('div');
+      messageDiv.textContent = message;
+      messageDiv.style.margin = '5px 0';
+      messageDiv.style.padding = '10px';
+      messageDiv.style.borderRadius = '10px';
+      messageDiv.style.backgroundColor = isUser ? '#0078d4' : '#f1f1f1';
+      messageDiv.style.color = isUser ? 'white' : 'black';
+      messageDiv.style.alignSelf = isUser ? 'flex-end' : 'flex-start';
+      chatBody.appendChild(messageDiv);
+      chatBody.scrollTop = chatBody.scrollHeight;
+    }
+
+    async function sendToOpenAI(prompt) {
+      try {
+        const response = await fetch("https://api.openai.com/v1/chat/completions", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${OPENAI_API_KEY}`
+          },
+          body: JSON.stringify({
+            model: "gpt-4",
+            messages: [{ role: "system", content: "You are a helpful assistant." }, { role: "user", content: prompt }],
+          })
+        });
+        const data = await response.json();
+        return data.choices[0].message.content.trim();
+      } catch (error) {
+        console.error("Error:", error);
+        return "Sorry, something went wrong.";
+      }
+    }
+
+    sendButton.addEventListener('click', async () => {
+      const userMessage = chatInput.value.trim();
+      if (userMessage) {
+        addMessage(userMessage, true);
+        chatInput.value = '';
+        
+        // Send the user's message to OpenAI and display the response
+        const aiResponse = await sendToOpenAI(userMessage);
+        addMessage(aiResponse, false);
+      }
+    });
+  </script>
+</body>
+</html>
