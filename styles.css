@@ -1,5 +1,3 @@
-/* styles.css */
-
 body {
     font-family: 'Poppins', Arial, sans-serif; /* Modern font */
     margin: 0;
@@ -97,6 +95,22 @@ section {
     text-shadow: 0 0 10px #0ff, 0 0 20px #0ff;
 }
 
+.contact button {
+    background-color: #111;
+    color: #0ff;
+    border: 2px solid #0ff;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 1em;
+    text-shadow: 0 0 10px #0ff, 0 0 20px #0ff;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.contact button:hover {
+    background-color: #0ff;
+    color: #111;
+}
+
 footer {
     background-color: #111;
     color: #0ff;
@@ -107,4 +121,20 @@ footer {
     bottom: 0;
     width: 100%;
     box-shadow: 0 -2px 5px rgba(0, 255, 255, 0.5);
+}
+
+.proxy button, .discord button {
+    background-color: #111;
+    color: #0ff;
+    border: 2px solid #0ff;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 1em;
+    text-shadow: 0 0 10px #0ff, 0 0 20px #0ff;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.proxy button:hover, .discord button:hover {
+    background-color: #0ff;
+    color: #111;
 }
