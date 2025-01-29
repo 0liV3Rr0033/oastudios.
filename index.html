@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home - 0A Stud!0s</title>
     <link rel="icon" type="image/x-icon" href="/favicon.ico">
-    <link rel="stylesheet" href="css/styles.css">
+
+    <!-- Inline critical CSS -->
     <style>
         /* General Reset */
         body, html {
@@ -35,7 +37,6 @@
             text-shadow: 0 0 5px #0ff, 0 0 10px #0ff, 0 0 20px #0ff;
         }
 
-        /* Navigation Styles */
         nav ul {
             list-style: none;
             display: flex;
@@ -45,7 +46,7 @@
         }
 
         nav ul li a {
-            color: #0ff; /* Neon blue links */
+            color: #0ff;
             text-decoration: none;
             font-size: 1rem;
             font-weight: bold;
@@ -54,7 +55,7 @@
         }
 
         nav ul li a:hover {
-            color: #fff; /* White text on hover */
+            color: #fff;
         }
 
         /* Hero Section */
@@ -71,7 +72,7 @@
 
         .hero p {
             font-size: 1.3rem;
-            color: #ddd; /* Slightly lighter text for readability */
+            color: #ddd;
             line-height: 1.6;
             max-width: 800px;
             margin: 0 auto;
@@ -84,7 +85,7 @@
             font-size: 1.2rem;
             font-weight: bold;
             color: #000;
-            background-color: #0ff; /* Neon blue button */
+            background-color: #0ff;
             border: none;
             text-decoration: none;
             border-radius: 5px;
@@ -93,8 +94,8 @@
         }
 
         .hero .button:hover {
-            background-color: #fff; /* White button background on hover */
-            color: #000; /* Black text on hover */
+            background-color: #fff;
+            color: #000;
         }
 
         /* Footer Styles */
@@ -102,7 +103,7 @@
             text-align: center;
             padding: 1.5rem 0;
             background-color: #111;
-            color: #0ff; /* Neon blue text */
+            color: #0ff;
             text-shadow: 0 0 5px #0ff, 0 0 10px #0ff;
             border-top: 2px solid #0ff;
         }
@@ -120,7 +121,11 @@
             border-radius: 10px;
         }
     </style>
+
+    <!-- Minified External CSS for Faster Load -->
+    <link rel="stylesheet" href="css/styles.min.css">
 </head>
+
 <body>
     <header>
         <div class="logo">0A Stud!0s</div>
@@ -137,34 +142,33 @@
 
     <section class="hero">
         <h1>Welcome to 0A Stud!0s</h1>
-        <p>At 0A Stud!0s, we are dedicated to the seamless integration of creativity and technology, 
-        driving the creation of innovative, cutting-edge solutions that redefine the possibilities of the digital world. 
-        We are a forward-thinking team of passionate professionals who believe that the future lies in the synergy between the arts and technological advancement. 
-        By constantly exploring the latest tools and methodologies, we strive to push the boundaries of what’s possible,
-        always staying one step ahead in a rapidly evolving landscape.
-        Our approach is rooted in a deep understanding of both creativity and technology, 
-        ensuring that every project we undertake is infused with originality and functionality.
-        Whether it's through developing bespoke software, designing intuitive user experiences, or creating visually stunning digital media,
-        we are committed to delivering exceptional results that exceed expectations.
-        At 0A Stud!0s, we don't just make things—we transform ideas into reality.
-        Our team’s expertise spans across various fields,
-        allowing us to tackle a broad range of challenges with both technical precision and artistic flair.
-        We collaborate closely with our clients to understand their vision, ensuring that every solution is
-        tailored to meet their specific needs while also anticipating the demands of the future.
-        We embrace innovation at every turn, constantly refining our craft and integrating new advancements in technology to stay at the forefront of the industry. 
-        Our commitment to quality, combined with an unwavering drive for excellence, allows us to consistently produce work that is not only functional but also impactful.
-        Join us as we continue to break new ground, bringing bold ideas to life through the power of creativity and technology.</p>
+        <p>At 0A Stud!0s, we are dedicated to seamless integration of creativity and technology. Our approach blends 
+        arts and technology to push boundaries and redefine digital experiences. Join us as we continue breaking new 
+        ground with innovation and artistic precision.</p>
         <a href="about.html" class="button">Learn More</a>
     </section>
 
+    <!-- Lazy Load Image with `loading="lazy"` -->
     <section class="image-link">
         <a href="https://www.example.com">
-            <img src="https://img.freepik.com/free-vector/gradient-blue-background_23-2149325127.jpg" alt="">
+            <img src="https://img.freepik.com/free-vector/gradient-blue-background_23-2149325127.jpg" alt="Example Image" loading="lazy">
         </a>
     </section>
 
     <footer>
         <p>&copy; 2025 0A Stud!0s. All Rights Reserved.</p>
     </footer>
+
+    <!-- Async JS to load after the page is ready -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Lazy load or deferred JavaScript for non-essential interactions
+            const btn = document.querySelector('.button');
+            btn.addEventListener('click', function () {
+                alert('Button clicked!');
+            });
+        });
+    </script>
 </body>
+
 </html>
