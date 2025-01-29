@@ -6,8 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home - 0A Stud!0s</title>
     <link rel="icon" type="image/x-icon" href="/favicon.ico">
-
-    <!-- Inline critical CSS -->
+    <link rel="stylesheet" href="css/styles.css">
     <style>
         /* General Reset */
         body, html {
@@ -15,8 +14,8 @@
             padding: 0;
             width: 100%;
             height: 100%;
-            background-color: #000; /* Black background for neon effect */
-            color: #fff; /* White text for readability */
+            background-color: #000;
+            color: #fff;
             font-family: Arial, sans-serif;
         }
 
@@ -26,14 +25,14 @@
             justify-content: space-between;
             align-items: center;
             padding: 1.5rem 2rem;
-            background-color: #111; /* Darker background for header */
-            border-bottom: 2px solid #0ff; /* Neon blue border */
+            background-color: #111;
+            border-bottom: 2px solid #0ff;
         }
 
         .logo {
             font-size: 2rem;
             font-weight: bold;
-            color: #0ff; /* Neon blue logo */
+            color: #0ff;
             text-shadow: 0 0 5px #0ff, 0 0 10px #0ff, 0 0 20px #0ff;
         }
 
@@ -62,12 +61,19 @@
         .hero {
             text-align: center;
             padding: 4rem 2rem;
+            background-image: url('https://img.freepik.com/free-vector/gradient-blue-background_23-2149325127.jpg');
+            background-size: cover;
+            background-position: center;
+            position: relative;
+            color: #fff;
         }
 
         .hero h1 {
             font-size: 3.5rem;
             text-shadow: 0 0 15px #0ff, 0 0 30px #0ff, 0 0 45px #0ff;
             margin-bottom: 1rem;
+            position: relative;
+            z-index: 1;
         }
 
         .hero p {
@@ -77,6 +83,8 @@
             max-width: 800px;
             margin: 0 auto;
             margin-bottom: 2rem;
+            position: relative;
+            z-index: 1;
         }
 
         .hero .button {
@@ -91,6 +99,8 @@
             border-radius: 5px;
             text-shadow: 0 0 5px #0ff, 0 0 10px #0ff;
             transition: background-color 0.3s ease;
+            position: relative;
+            z-index: 1;
         }
 
         .hero .button:hover {
@@ -121,9 +131,6 @@
             border-radius: 10px;
         }
     </style>
-
-    <!-- Minified External CSS for Faster Load -->
-    <link rel="stylesheet" href="css/styles.min.css">
 </head>
 
 <body>
@@ -142,33 +149,19 @@
 
     <section class="hero">
         <h1>Welcome to 0A Stud!0s</h1>
-        <p>At 0A Stud!0s, we are dedicated to seamless integration of creativity and technology. Our approach blends 
-        arts and technology to push boundaries and redefine digital experiences. Join us as we continue breaking new 
-        ground with innovation and artistic precision.</p>
+        <p>At 0A Stud!0s, we are dedicated to the seamless integration of creativity and technology, driving the creation of innovative, cutting-edge solutions that redefine the possibilities of the digital world. We are a forward-thinking team of passionate professionals who believe that the future lies in the synergy between the arts and technological advancement. By constantly exploring the latest tools and methodologies, we strive to push the boundaries of what’s possible, always staying one step ahead in a rapidly evolving landscape.</p>
         <a href="about.html" class="button">Learn More</a>
     </section>
 
-    <!-- Lazy Load Image with `loading="lazy"` -->
     <section class="image-link">
         <a href="https://www.example.com">
-            <img src="https://img.freepik.com/free-vector/gradient-blue-background_23-2149325127.jpg" alt="Example Image" loading="lazy">
+            <img src="https://img.freepik.com/free-vector/gradient-blue-background_23-2149325127.jpg" alt="">
         </a>
     </section>
 
     <footer>
         <p>&copy; 2025 0A Stud!0s. All Rights Reserved.</p>
     </footer>
-
-    <!-- Async JS to load after the page is ready -->
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            // Lazy load or deferred JavaScript for non-essential interactions
-            const btn = document.querySelector('.button');
-            btn.addEventListener('click', function () {
-                alert('Button clicked!');
-            });
-        });
-    </script>
 </body>
 
 </html>
