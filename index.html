@@ -15,6 +15,7 @@
             height: 100%;
             background-color: #000; /* Black background for neon effect */
             color: #fff; /* White text for readability */
+            font-family: Arial, sans-serif;
         }
 
         /* Header Styles */
@@ -22,7 +23,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 1rem 2rem;
+            padding: 1.5rem 2rem;
             background-color: #111; /* Darker background for header */
             border-bottom: 2px solid #0ff; /* Neon blue border */
         }
@@ -38,7 +39,7 @@
         nav ul {
             list-style: none;
             display: flex;
-            gap: 1rem;
+            gap: 1.5rem;
             padding: 0;
             margin: 0;
         }
@@ -63,19 +64,23 @@
         }
 
         .hero h1 {
-            font-size: 3rem;
-            text-shadow: 0 0 10px #0ff, 0 0 20px #0ff, 0 0 30px #0ff;
+            font-size: 3.5rem;
+            text-shadow: 0 0 15px #0ff, 0 0 30px #0ff, 0 0 45px #0ff;
+            margin-bottom: 1rem;
         }
 
         .hero p {
-            font-size: 1.5rem;
+            font-size: 1.3rem;
             color: #ddd; /* Slightly lighter text for readability */
+            line-height: 1.6;
+            max-width: 800px;
+            margin: 0 auto;
+            margin-bottom: 2rem;
         }
 
         .hero .button {
             display: inline-block;
-            padding: 0.8rem 2rem;
-            margin-top: 1rem;
+            padding: 1rem 2.5rem;
             font-size: 1.2rem;
             font-weight: bold;
             color: #000;
@@ -95,11 +100,24 @@
         /* Footer Styles */
         footer {
             text-align: center;
-            padding: 1rem 0;
+            padding: 1.5rem 0;
             background-color: #111;
             color: #0ff; /* Neon blue text */
             text-shadow: 0 0 5px #0ff, 0 0 10px #0ff;
             border-top: 2px solid #0ff;
+        }
+
+        /* Image Link Section */
+        .image-link {
+            display: flex;
+            justify-content: center;
+            margin-top: 2rem;
+        }
+
+        .image-link img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
         }
     </style>
 </head>
@@ -120,23 +138,29 @@
     <section class="hero">
         <h1>Welcome to 0A Stud!0s</h1>
         <p>At 0A Stud!0s, we are dedicated to the seamless integration of creativity and technology, 
-driving the creation of innovative, cutting-edge solutions that redefine the possibilities of the digital world. 
-We are a forward-thinking team of passionate professionals who believe that the future lies in the synergy between the arts and technological advancement. 
-By constantly exploring the latest tools and methodologies, we strive to push the boundaries of what’s possible,
-always staying one step ahead in a rapidly evolving landscape.
-Our approach is rooted in a deep understanding of both creativity and technology, 
-ensuring that every project we undertake is infused with originality and functionality.
-Whether it's through developing bespoke software, designing intuitive user experiences, or creating visually stunning digital media,
-we are committed to delivering exceptional results that exceed expectations.
-At 0A Stud!0s, we don't just make things—we transform ideas into reality.
-Our team’s expertise spans across various fields,
-allowing us to tackle a broad range of challenges with both technical precision and artistic flair.
-We collaborate closely with our clients to understand their vision, ensuring that every solution is
-tailored to meet their specific needs while also anticipating the demands of the future.
-We embrace innovation at every turn, constantly refining our craft and integrating new advancements in technology to stay at the forefront of the industry. 
-Our commitment to quality, combined with an unwavering drive for excellence, allows us to consistently produce work that is not only functional but also impactful.
-Join us as we continue to break new ground, bringing bold ideas to life through the power of creativity and technology.</p>
+        driving the creation of innovative, cutting-edge solutions that redefine the possibilities of the digital world. 
+        We are a forward-thinking team of passionate professionals who believe that the future lies in the synergy between the arts and technological advancement. 
+        By constantly exploring the latest tools and methodologies, we strive to push the boundaries of what’s possible,
+        always staying one step ahead in a rapidly evolving landscape.
+        Our approach is rooted in a deep understanding of both creativity and technology, 
+        ensuring that every project we undertake is infused with originality and functionality.
+        Whether it's through developing bespoke software, designing intuitive user experiences, or creating visually stunning digital media,
+        we are committed to delivering exceptional results that exceed expectations.
+        At 0A Stud!0s, we don't just make things—we transform ideas into reality.
+        Our team’s expertise spans across various fields,
+        allowing us to tackle a broad range of challenges with both technical precision and artistic flair.
+        We collaborate closely with our clients to understand their vision, ensuring that every solution is
+        tailored to meet their specific needs while also anticipating the demands of the future.
+        We embrace innovation at every turn, constantly refining our craft and integrating new advancements in technology to stay at the forefront of the industry. 
+        Our commitment to quality, combined with an unwavering drive for excellence, allows us to consistently produce work that is not only functional but also impactful.
+        Join us as we continue to break new ground, bringing bold ideas to life through the power of creativity and technology.</p>
         <a href="about.html" class="button">Learn More</a>
+    </section>
+
+    <section class="image-link">
+        <a href="https://www.example.com">
+            <img src="https://img.freepik.com/free-vector/gradient-blue-background_23-2149325127.jpg" alt="">
+        </a>
     </section>
 
     <footer>
