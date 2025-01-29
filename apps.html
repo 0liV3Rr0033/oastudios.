@@ -59,6 +59,43 @@
             background-color: #555;
         }
 
+        .iframe-container {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        iframe {
+            width: 80%;
+            height: 80%;
+            border: none;
+            border-radius: 10px;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background-color: #ff0000;
+            color: #fff;
+            font-size: 20px;
+            padding: 10px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .close-btn:hover {
+            background-color: #ff6666;
+        }
+
         footer {
             background-color: #111;
             color: #0ff;
@@ -76,29 +113,51 @@
     <div class="game-list">
         <div class="game-item">
             <h3>Xbox</h3>
-            <button onclick="window.location.href='https://homes.suburbanprecision.com/a/hvtrs8%2F-wuw%2Cx%60oz.aoo%2Fgn%2FUQ'">Open App</button>
+            <button onclick="openApp('https://homes.suburbanprecision.com/a/hvtrs8%2F-wuw%2Cx%60oz.aoo%2Fgn%2FUQ')">Open App</button>
         </div>
-      <div class="game-item">
+        <div class="game-item">
             <h3>Microsoft</h3>
-            <button onclick="window.location.href='https://homes.suburbanprecision.com/a/hvtrs8%2F-wuw%2Cbkne.aoo%2F%3DtmHvtrs%3F1%24rgdkg%3F4257A%3BA5EF5D4D5A8D0CD19CAF2282A7'">Open App</button>
+            <button onclick="openApp('https://homes.suburbanprecision.com/a/hvtrs8%2F-wuw%2Cbkne.aoo%2F%3DtmHvtrs%3F1%24rgdkg%3F4257A%3BA5EF5D4D5A8D0CD19CAF2282A7')">Open App</button>
         </div>
-      <div class="game-item">
+        <div class="game-item">
             <h3>Google</h3>
-            <button onclick="window.location.href='https://homes.suburbanprecision.com/a/hvtrs8%2F-wuw%2Cgmoelg.ao%2Cui%2F'">Open App</button>
+            <button onclick="openApp('https://homes.suburbanprecision.com/a/hvtrs8%2F-wuw%2Cgmoelg.ao%2Cui%2F')">Open App</button>
         </div>
         <div class="game-item">
             <h3>Now.gg</h3>
-            <button onclick="window.location.href='https://homes.suburbanprecision.com/a/hvtrs8%2F-nmw%2Cge%2F'">Open App</button>
+            <button onclick="openApp('https://homes.suburbanprecision.com/a/hvtrs8%2F-nmw%2Cge%2F')">Open App</button>
         </div>
         <div class="game-item">
             <h3>Chat-Gpt</h3>
-            <button onclick="window.location.href='https://homes.suburbanprecision.com/a/hvtrs8%2F-cjavgrt%2Ccmm-'">Open App</button>
+            <button onclick="openApp('https://homes.suburbanprecision.com/a/hvtrs8%2F-cjavgrt%2Ccmm-')">Open App</button>
         </div>
+    </div>
+
+    <!-- Embedded App Display -->
+    <div id="iframe-container" class="iframe-container">
+        <div class="close-btn" onclick="closeApp()">X</div>
+        <iframe id="game-iframe" src="" frameborder="0"></iframe>
     </div>
 
     <footer>
         <p>&copy; 2025 Game Selector. All Rights Reserved.</p>
     </footer>
+
+    <script>
+        function openApp(url) {
+            var iframe = document.getElementById('game-iframe');
+            var iframeContainer = document.getElementById('iframe-container');
+            iframe.src = url;
+            iframeContainer.style.display = 'flex';
+        }
+
+        function closeApp() {
+            var iframe = document.getElementById('game-iframe');
+            var iframeContainer = document.getElementById('iframe-container');
+            iframe.src = '';  // Clear the iframe source
+            iframeContainer.style.display = 'none';
+        }
+    </script>
 
 </body>
 </html>
