@@ -161,168 +161,252 @@
 
 </html>
 
-<!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI Chatbox</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #121212;
-            color: white;
-        }
+  <title>Barry</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+  <script type="text/javascript">
+    var accessToken = "dce399808780466db898fad9bfae71fe",
+      baseUrl = "https://api.api.ai/v1/",
+      $speechInput,
+      $recBtn,
+      recognition,
+      messageRecording = "Recording...",
+      messageCouldntHear = "I couldn't hear you, could you say that again?",
+      messageInternalError = "Oh no, there has been an internal server error",
+      messageSorry = "I'm sorry, I don't have the answer to that yet.";
 
-        /* Button styles */
-        #ai-chat-btn {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            background-color: #1e90ff;
-            color: white;
-            border: none;
-            padding: 15px;
-            border-radius: 50%;
-            cursor: pointer;
-            font-size: 20px;
-            box-shadow: 0 0 20px rgba(30, 144, 255, 0.8);
-            z-index: 1000;
-            transition: box-shadow 0.3s ease;
-        }
+    $(document).ready(function() {
+      $speechInput = $("#speech");
+      $recBtn = $("#rec");
 
-        #ai-chat-btn:hover {
-            box-shadow: 0 0 30px rgba(30, 144, 255, 1);
+      $speechInput.keypress(function(event) {
+        if (event.which == 13) {
+          event.preventDefault();
+          send();
         }
+      });
+      $recBtn.on("click", function(event) {
+        switchRecognition();
+      });
+      $(".debug__btn").on("click", function() {
+        $(this).next().toggleClass("is-active");
+        return false;
+      });
+    });
 
-        /* Chatbox container styles */
-        #chat-container {
-            position: fixed;
-            bottom: 70px;
-            right: 20px;
-            width: 300px;
-            height: 400px;
-            background-color: #1e1e1e;
-            border-radius: 8px;
-            display: none;
-            flex-direction: column;
-            box-shadow: 0 0 30px rgba(30, 144, 255, 0.8);
-            z-index: 999;
-        }
+    function startRecognition() {
+      recognition = new webkitSpeechRecognition();
+      recognition.continuous = false;
+          recognition.interimResults = false;
 
-        /* Header of the chat */
-        #chat-header {
-            background-color: #1e90ff;
-            color: white;
-            padding: 10px;
-            text-align: center;
-            border-radius: 8px 8px 0 0;
-            box-shadow: 0 0 10px rgba(30, 144, 255, 0.8);
-        }
+      recognition.onstart = function(event) {
+        respond(messageRecording);
+        updateRec();
+      };
+      recognition.onresult = function(event) {
+        recognition.onend = null;
+        
+        var text = "";
+          for (var i = event.resultIndex; i < event.results.length; ++i) {
+            text += event.results[i][0].transcript;
+          }
+          setInput(text);
+        stopRecognition();
+      };
+      recognition.onend = function() {
+        respond(messageCouldntHear);
+        stopRecognition();
+      };
+      recognition.lang = "en-US";
+      recognition.start();
+    }
+  
+    function stopRecognition() {
+      if (recognition) {
+        recognition.stop();
+        recognition = null;
+      }
+      updateRec();
+    }
 
-        /* Chat messages area */
-        #chat-box {
-            padding: 10px;
-            overflow-y: auto;
-            flex: 1;
-            height: calc(100% - 100px);
-        }
+    function switchRecognition() {
+      if (recognition) {
+        stopRecognition();
+      } else {
+        startRecognition();
+      }
+    }
 
-        .message {
-            margin-bottom: 10px;
-            color: #b0c4de;
-        }
+    function setInput(text) {
+      $speechInput.val(text);
+      send();
+    }
 
-        /* Chat input area */
-        #chat-input-container {
-            display: flex;
-            padding: 10px;
-            background-color: #2a2a2a;
-            border-radius: 0 0 8px 8px;
-        }
+    function updateRec() {
+      $recBtn.text(recognition ? "Stop" : "Speak");
+    }
 
-        #chat-input {
-            width: 80%;
-            padding: 10px;
-            border: 1px solid #1e90ff;
-            border-radius: 4px;
-            background-color: #121212;
-            color: white;
-        }
+    function send() {
+      var text = $speechInput.val();
+      $.ajax({
+        type: "POST",
+        url: baseUrl + "query",
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        headers: {
+          "Authorization": "Bearer " + accessToken
+        },
+        data: JSON.stringify({query: text, lang: "en", sessionId: "yaydevdiner"}),
 
-        #send-btn {
-            width: 15%;
-            background-color: #1e90ff;
-            color: white;
-            border: none;
-            padding: 10px;
-            border-radius: 4px;
-            cursor: pointer;
-            box-shadow: 0 0 10px rgba(30, 144, 255, 0.8);
+        success: function(data) {
+          prepareResponse(data);
+        },
+        error: function() {
+          respond(messageInternalError);
         }
+      });
+    }
 
-        #send-btn:hover {
-            background-color: #4682b4;
-            box-shadow: 0 0 20px rgba(30, 144, 255, 1);
-        }
-    </style>
+    function prepareResponse(val) {
+      var debugJSON = JSON.stringify(val, undefined, 2),
+        spokenResponse = val.result.speech;
+
+      respond(spokenResponse);
+      debugRespond(debugJSON);
+    }
+
+    function debugRespond(val) {
+      $("#response").text(val);
+    }
+
+    function respond(val) {
+      if (val == "") {
+        val = messageSorry;
+      }
+
+      if (val !== messageRecording) {
+        var msg = new SpeechSynthesisUtterance();
+        msg.voiceURI = "native";
+        msg.text = val;
+        msg.lang = "en-US";
+        window.speechSynthesis.speak(msg);
+      }
+
+      $("#spokenResponse").addClass("is-active").find(".spoken-response__text").html(val);
+    }
+  </script>
+  <style type="text/css">
+    html {
+      box-sizing: border-box;
+    }
+    *, *:before, *:after {
+      box-sizing: inherit;
+    }
+    body {
+      background-color: #192837;
+      font-family: "Titillium Web", Arial, sans-serif;
+      font-size: 20px;
+      margin: 0;
+    }
+    .container {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      -webkit-transform: translate(-50%, -50%);
+    }
+    input {
+      background-color: #126077;
+      border: 1px solid #3F7F93;
+      color: #A6CAE6;
+      font-family: "Titillium Web";
+      font-size: 20px;
+      line-height: 43px;
+      padding: 0 0.75em;
+      width: 400px;
+      -webkit-transition: all 0.35s ease-in;
+    }
+    textarea {
+      background-color: #070F24;
+      border: 1px solid #122435;
+      color: #606B88;
+      padding: 0.5em;
+      width: 100%;
+      -webkit-transition: all 0.35s ease-in;
+    }
+    input:active, input:focus, textarea:active, textarea:focus {
+      outline: 1px solid #48788B;
+    }
+    .btn {
+      background-color: #126178;
+      border: 1px solid #549EAF;
+      color: #549EAF;
+      cursor: pointer;
+      display: inline-block;
+      font-family: "Titillium Web";
+      font-size: 20px;
+      line-height: 43px;
+      padding: 0 0.75em;
+      text-align: center;
+      text-transform: uppercase;
+      -webkit-transition: all 0.35s ease-in;
+    }
+    .btn:hover {
+      background-color: #1888A9;
+      color: #183035;
+    }
+    .debug {
+      bottom: 0;
+      position: fixed;
+      right: 0;
+    }
+    .debug__content {
+      font-size: 14px;
+      max-height: 0;
+      overflow: hidden;
+      -webkit-transition: all 0.35s ease-in;
+    }
+    .debug__content.is-active {
+      display: block;
+      max-height: 500px;
+    }
+    .debug__btn {
+      width: 100%;
+    }
+    .spoken-response {
+      max-height: 0;
+      overflow: hidden;
+      -webkit-transition: all 0.35s ease-in;
+    }
+    .spoken-response.is-active {
+      max-height: 400px;
+    }
+    .spoken-response__text {
+      background-color: #040E23;
+      color: #7584A2;
+      padding: 1em;
+    }
+  </style>
 </head>
 <body>
-
-    <!-- AI Chat Button -->
-    <button id="ai-chat-btn">💬</button>
-
-    <!-- AI Chatbox -->
-    <div id="chat-container">
-        <div id="chat-header">AI Chat</div>
-        <div id="chat-box"></div>
-        <div id="chat-input-container">
-            <input type="text" id="chat-input" placeholder="Type a message...">
-            <button id="send-btn">Send</button>
-        </div>
+  <div class="container">
+    <input id="speech" type="text">
+    <button id="rec" class="btn">Speak</button>
+    <div id="spokenResponse" class="spoken-response">
+      <div class="spoken-response__text"></div>
     </div>
+  </div>
+  <div class="debug">
+    <div class="debug__btn btn">
+      Debug JSON results
+    </div>
+    <div class="debug__content">
+      <textarea id="response" cols="40" rows="20"></textarea>
+    </div>
+  </div>
 
-    <script>
-        // Get the button and chat container
-        const chatButton = document.getElementById("ai-chat-btn");
-        const chatContainer = document.getElementById("chat-container");
-        const chatInput = document.getElementById("chat-input");
-        const sendButton = document.getElementById("send-btn");
-        const chatBox = document.getElementById("chat-box");
-
-        // Toggle chatbox visibility
-        chatButton.addEventListener("click", function() {
-            if (chatContainer.style.display === "none" || chatContainer.style.display === "") {
-                chatContainer.style.display = "flex";
-            } else {
-                chatContainer.style.display = "none";
-            }
-        });
-
-        // Send message
-        sendButton.addEventListener("click", function() {
-            const userMessage = chatInput.value.trim();
-            if (userMessage !== "") {
-                addMessage("You", userMessage);
-                chatInput.value = "";
-                // Simulating AI response
-                setTimeout(() => {
-                    addMessage("AI", "This is an AI response.");
-                }, 1000);
-            }
-        });
-
-        // Add message to chat
-        function addMessage(sender, message) {
-            const messageElement = document.createElement("div");
-            messageElement.classList.add("message");
-            messageElement.innerHTML = `<strong>${sender}:</strong> ${message}`;
-            chatBox.appendChild(messageElement);
-            chatBox.scrollTop = chatBox.scrollHeight;
-        }
-    </script>
-
+  <link href="https://fonts.googleapis.com/css?family=Titillium+Web:200" rel="stylesheet" type="text/css">
 </body>
+</html>
 </html>
