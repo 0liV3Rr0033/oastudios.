@@ -109,7 +109,6 @@
 <body>
 
     <h1>APPS</h1>
-
     <div class="game-list">
         <div class="game-item">
             <h3>Xbox</h3>
@@ -133,7 +132,6 @@
         </div>
     </div>
 
-    <!-- Embedded App Display -->
     <div id="iframe-container" class="iframe-container">
         <div class="close-btn" onclick="closeApp()">X</div>
         <iframe id="game-iframe" src="" frameborder="0"></iframe>
@@ -154,7 +152,7 @@
         function closeApp() {
             var iframe = document.getElementById('game-iframe');
             var iframeContainer = document.getElementById('iframe-container');
-            iframe.src = '';  // Clear the iframe source
+            iframe.src = '';
             iframeContainer.style.display = 'none';
         }
     </script>
