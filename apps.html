@@ -13,6 +13,7 @@
             margin: 0;
             padding: 0;
             text-align: center;
+            padding-bottom: 50px; /* Prevent footer overlap */
         }
 
         h1 {
@@ -56,7 +57,7 @@
         }
 
         .game-item button:hover {
-            background-color: #555;
+            background-color: #008b8b; /* Better contrast for hover */
         }
 
         .iframe-container {
@@ -81,8 +82,8 @@
 
         .close-btn {
             position: absolute;
-            top: 10px;
-            left: 10px;
+            top: 15px;
+            right: 15px;
             background-color: #ff0000;
             color: #fff;
             font-size: 20px;
@@ -103,6 +104,7 @@
             position: fixed;
             bottom: 0;
             width: 100%;
+            text-align: center;
         }
     </style>
 </head>
@@ -112,33 +114,33 @@
     <div class="game-list">
         <div class="game-item">
             <h3>Xbox</h3>
-            <button onclick="openApp('https://homes.suburbanprecision.com/a/hvtrs8%2F-wuw%2Cx%60oz.aoo%2Fgn%2FUQ')">Open App</button>
+            <button onclick="openApp('https://www.xbox.com/')">Open App</button>
         </div>
         <div class="game-item">
             <h3>Microsoft</h3>
-            <button onclick="openApp('https://homes.suburbanprecision.com/a/hvtrs8%2F-wuw%2Cbkne.aoo%2F%3DtmHvtrs%3F1%24rgdkg%3F4257A%3BA5EF5D4D5A8D0CD19CAF2282A7')">Open App</button>
+            <button onclick="openApp('https://www.microsoft.com/')">Open App</button>
         </div>
         <div class="game-item">
             <h3>Google</h3>
-            <button onclick="openApp('https://homes.suburbanprecision.com/a/hvtrs8%2F-wuw%2Cgmoelg.ao%2Cui%2F')">Open App</button>
+            <button onclick="openApp('https://www.google.com/')">Open App</button>
         </div>
         <div class="game-item">
             <h3>Now.gg</h3>
-            <button onclick="openApp('https://homes.suburbanprecision.com/a/hvtrs8%2F-nmw%2Cge%2F')">Open App</button>
+            <button onclick="openApp('https://now.gg/')">Open App</button>
         </div>
         <div class="game-item">
-            <h3>Chat-Gpt</h3>
-            <button onclick="openApp('https://homes.suburbanprecision.com/a/hvtrs8%2F-cjavgrt%2Ccmm-')">Open App</button>
+            <h3>ChatGPT</h3>
+            <button onclick="openApp('https://chat.openai.com/')">Open App</button>
         </div>
     </div>
 
     <div id="iframe-container" class="iframe-container">
         <div class="close-btn" onclick="closeApp()">X</div>
-        <iframe id="game-iframe" src="" frameborder="1"></iframe>
+        <iframe id="game-iframe" src="" frameborder="0"></iframe>
     </div>
 
     <footer>
-        <p>&copy; 2025 Game Selector. All Rights Reserved.</p>
+        <p>&copy; 2025 Apps 0A StuD!0s. All Rights Reserved.</p>
     </footer>
 
     <script>
